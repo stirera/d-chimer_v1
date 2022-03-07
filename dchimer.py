@@ -77,7 +77,7 @@ def main():
 
         if os. path. isdir(repertoire):
 
-            sys.exit('ERROR : BLASTn output directory exists : '+
+            sys.exit('ERROR : BLASTn output directory exists : ' +
                      repertoire +
                      '\n\n' + 'Please remove it before'+'\n')
 
