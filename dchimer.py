@@ -28,11 +28,11 @@ def opts_and_args():
                         '--local',
                         type=bool,
                         help="""use local machine BLAST programs (required) :
-                                True/False (default : False)""",
+                                True/False (default : True)""",
                         dest='local',
                         metavar='local',
                         required=True,
-                        default=False)
+                        default=True)
 
     parser.add_argument('-f',
                         '--fasta',
