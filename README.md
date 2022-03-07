@@ -141,8 +141,10 @@ users must provide the path to the local installation of BLAST in the configurat
 
         add_taxo_parameters :
           tax_lineages_file : /home/user/db/fullnamelineage_taxid_sorted.dmp
+         
+        blast_path : /home/user/tools/ncbi-blast-2.12.0+/bin
 
-blast_path : /home/user/tools/ncbi-blast-2.12.0+/bin
+
 
             
 
