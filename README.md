@@ -1,6 +1,6 @@
 # d-chimer_v1
 ## 1. **What is d-chimer for ?**
-Disentangle Chimeric (d-chimer) sequences in de novo assembled viromes/metagenomes is a BLAST based pipeline conceived for taxonomic assignments by taking into account that :
+Disentangle chimeric (d-chimer) sequences in de novo assembled viromes/metagenomes is a BLAST based pipeline conceived for taxonomic assignments by taking into account that :
 - Contigs can be only partly covered in a single BLAST search 
 - Contigs can be covered by different genes from different organisms
 
