@@ -27,7 +27,8 @@ def opts_and_args():
     parser.add_argument('-L',
                         '--local',
                         type=bool,
-                        help='use local machine BLAST programs (required) : True/False (default : False)',
+                        help="""use local machine BLAST programs (required) :
+                                True/False (default : False)""",
                         dest='local',
                         metavar='local',
                         required=True,
