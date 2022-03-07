@@ -6,11 +6,11 @@ Disentangle Chimeric (d-chimer) sequences in de novo assembled viromes/metagenom
 
 ## 2. **How does d-chimer proceed ?**
 d-chimer handles the chimeric sequences by using:
-### 2.1 BLAST 
+### 2.1 ***BLAST:*** 
 BLAST is used to make homology search of input sequences against a reference database; either nucleotides or proteins database.
 ### 2.2 ***A filter:*** 
-The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The longuest and top scoring subjects for each stack are kept.
-The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be submitted automatically to BLAST.
+The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
+The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
 
 ### 2.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
@@ -44,8 +44,12 @@ Clone or download the d-chimer repository into your system. d-chimer depends on 
             pip install PyYAML
 
 
+### 3.2 BLAST+ programs
+BLAST+ can be installed https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
 
-### 3.2 BLAST databases
+download with wget : wget https://ftp.ncbi.nih.gov/blast/executables/blast+/
+
+### 3.3 BLAST databases
 BLAST databases can be downloaded from this link : https://ftp.ncbi.nlm.nih.gov/blast/db/
 
 If blast+ programs are installed, ncbi nucleotide and protein databases can be downloaded by using the following commands :
@@ -95,63 +99,80 @@ Using the d-chimer BLASTx version provided here requires a two ways BLASTx.
 The solutions are :
 - ousers can create such database or a similar one according to their needs.
 
-- or change the code (*call_blast_and_filter* method in *d-chimerr_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3.3***** ).
+- or change the code (*call_blast_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3.3***** ).
 
 - for review need, we provide the BLAST formatted viral proteins database used in the d-chimer paper it is available here : https://drive.google.com/file/d/1Pmv4Rt6bFf5pgO-9k_HGHw2qEUSxsxTz/view?usp=sharing.
 
-Once the zip file downloaded and decompressed, users must specify its path in the *blastx_config.yaml* file.  
+Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
 
 ##### /!\ Biopython based blast+ is used for ease of installation.
-In fact, if Biopython is installed and databases + taxonomic information available (*fullnamelineage_taxid_sorted.dmp* file), d-chimer can be used after configuring the "yaml" files.
-
-## 3.3 How to configure d-chimer on your own system ?
-- blastn configuration (*blastn_config.yaml* file):
-
-      blastn_parameters :
-        - dbpath=/path_to/db/nt
-        - nb_threads=56
-        - evalue=0.01
-
-      filter_blastn_parameters :
-        - d=10
-        - l=50
-        - I=1
-
-      add_taxo_parameters :
-        - tax_lineages_file=/path_to/db/fullnamelineage_taxid_sorted.dmp
+In fact, if Biopython is installed and databases + taxonomic information available (*fullnamelineage_taxid_sorted.dmp* file), d-chimer can be used after configuring the "yaml" file. The biopython blast calls may fail with blast v5 database.
 
 
-- blastx configuration (*blastx_config.yaml* file):
+##### /!\ BLAST V5 database :
 
-      blastx_parameters :
-         - dbpath_vrl=/path_to/db/virnr/viruses_nr_prots.100p.faa
-         - dbpath_nr=/path_to/db/nr/nr
-         - nb_threads=28
-         - evalue=0.1
-         - evalue1=0.01
+users must provide the path to the local installation of BLAST in the configuration file d-chimer_config.yaml (see exemple below).
 
-      filter_blastx_parameters :
-         - d=10
-         - l=17
-         - I=1
 
-      add_taxo_parameters :
-         - tax_lineages_file=/path_to/db/fullnamelineage_taxid_sorted.dmp
+## 3.3 How to configure d-chimer on your own system (d-chimer_config.yaml) ? 
+Fill the different fields in the *d-chimer_config.yaml* file.
 
+blastn_parameters :
+  dbpath_nt : /home/stirera/work_directory/db/ncbi/nt/nt
+  nb_threads_bn : 28
+  evalue_nt : 0.01
+
+filter_blastn_parameters :
+ d : 10
+ l : 50
+ I : 1
+
+blastx_parameters :
+  dbpath_vrl : /home/stirera/work_directory/db/ncbi/virnr/viruses_nr_prots.100p.faa
+  dbpath_nr : /home/stirera/work_directory/db/ncbi/nr/nr
+  nb_threads_bx : 28
+  evalue_vir : 0.1
+  evalue_nr : 0.01
+
+filter_blastx_parameters :
+  d : 10
+  l : 17
+  I : 1
+
+add_taxo_parameters :
+  tax_lineages_file : /home/stirera/work_directory/db/fullnamelineage_taxid_sorted.dmp
+
+blast_path : /home/stirera/tools/ncbi-blast-2.12.0+/bin
 
 ## 4. **How to run d-chimer on your own system  ?**
  
-Once the parameters are configured, the d-chimer programs can be used as follow :
+Once the parameters are configured (through the `d-chimer_config.yaml`, file), d-chimer can be used as follow :
 
-    python3.7 d-chimer/blastn/d-chimer_main.py -f query_file.fasta
-
-or
-
-    python3.7 d-chimer/blastx/d-chimer_main_bx.py -f query_file.fasta 
-
-for blastx.
-
+    python3 dchimer.py  -p blastn -L True -f query_file.fasta
 
 By default, d-chimer runs in a recursive manner. The number of cycles can be limited by using the -m option. For example,  to limit d-chimer to two cycles :
 
-      python3.7 d-chimer/blastn/d-chimer_main.py -f query_file.fasta -m 2
+      python3 dchimer.py -p blastn -L True -f query_file.fasta -m 2
+
+
+For full view of d-chimer options, type :
+
+
+      python3 dchimer.py -h
+
+      run a blast program and filter its outputs
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -p blastprogram, --program blastprogram
+                              blastProgram (required) : blastn or blastx
+        -L local, --local local
+                              use local machine BLAST programs (required) :
+                              True/False (default : False)
+        -f fastafile, --fasta fastafile
+                              input fasta_file (required)
+        -m max_loops, --max_recursive_loops max_loops
+                              maximum number of times to to process uncovered zones
+                              fasta      
+
+      usage : dchimer [-h] -p blastProgram -L True -f fastafile [-m] max_loops
