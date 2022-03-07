@@ -93,7 +93,7 @@ we used a custom database for the BLASTx version.
 
 In fact, using the ncbi nr database directly were too long for a BLASTx search. 
 
-For viromes, a database of only viruses were created and deduplicated using cd-hit (http://weizhong-lab.ucsd.edu/cd-hit/). 
+For viromes, a database of only viruses were created and deduplicated using cd-hit (http://weizhong-lab.ucsd.edu/cd-hit/ or https://github.com/weizhongli/cdhit). 
 Using the d-chimer BLASTx version provided here requires a two ways BLASTx. 
 
 The solutions are :
