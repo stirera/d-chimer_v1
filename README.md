@@ -118,7 +118,7 @@ users must provide the path to the local installation of BLAST in the configurat
 - Fill the different fields in the *d-chimer_config.yaml* file :
 
         blastn_parameters :
-          dbpath_nt : /home/stirera/work_directory/db/ncbi/nt/nt
+          dbpath_nt : /home/user/db/ncbi/nt/nt
           nb_threads_bn : 28
           evalue_nt : 0.01
 
@@ -128,8 +128,8 @@ users must provide the path to the local installation of BLAST in the configurat
          I : 1
 
         blastx_parameters :
-          dbpath_vrl : /home/stirera/work_directory/db/ncbi/virnr/viruses_nr_prots.100p.faa
-          dbpath_nr : /home/stirera/work_directory/db/ncbi/nr/nr
+          dbpath_vrl : /home/user/db/ncbi/virnr/viruses_nr_prots.100p.faa
+          dbpath_nr : /home/user/db/ncbi/nr/nr
           nb_threads_bx : 28
           evalue_vir : 0.1
           evalue_nr : 0.01
@@ -140,9 +140,9 @@ users must provide the path to the local installation of BLAST in the configurat
           I : 1
 
         add_taxo_parameters :
-          tax_lineages_file : /home/stirera/work_directory/db/fullnamelineage_taxid_sorted.dmp
+          tax_lineages_file : /home/user/db/fullnamelineage_taxid_sorted.dmp
 
-blast_path : /home/stirera/tools/ncbi-blast-2.12.0+/bin
+blast_path : /home/user/tools/ncbi-blast-2.12.0+/bin
 
             
 
