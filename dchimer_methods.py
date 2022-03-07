@@ -74,7 +74,7 @@ def runblast(program, local, qfile, db, evalue, outcsv):
 
             subprocess_run(['/usr/bin/bash', path+"/blastn_script.sh"], check=True)
 
-        else :    
+        else :
             cline=(NcbiblastnCommandline(cmd='blastn',
                                          out=outcsv,
                                          outfmt=fmtbn,
