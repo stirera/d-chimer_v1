@@ -45,7 +45,7 @@ Clone or download the d-chimer repository into your system. d-chimer depends on 
 
 
 ### 3.2 BLAST+ programs
-BLAST+ can be installed https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
+BLAST+ can be installed, by downloading binaries here : https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
 
 download with wget : wget https://ftp.ncbi.nih.gov/blast/executables/blast+/
 
@@ -106,7 +106,7 @@ The solutions are :
 Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
 
 ##### /!\ Biopython based blast+ is used for ease of installation.
-In fact, if Biopython is installed and databases + taxonomic information available (*fullnamelineage_taxid_sorted.dmp* file), d-chimer can be used after configuring the "yaml" file. The biopython blast calls may fail with blast v5 database.
+In fact, if Biopython is installed and databases + taxonomic information available (*fullnamelineage_taxid_sorted.dmp* file), d-chimer can be used after configuring the "yaml" file. The biopython blast calls may fail with blast v5 databases. Then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running dchimer.
 
 
 ##### /!\ BLAST V5 database :
