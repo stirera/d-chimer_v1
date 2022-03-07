@@ -59,7 +59,7 @@ def runblast(program, local, qfile, db, evalue, outcsv):
 
     # Here are the BLAST commands
     if program == 'blastn' :
-        if local == True :
+        if local is True :
             with open (path+"/blastn_script.sh", "w") as bnscript :
                 bnscript.write(str(blast_path) + 
                                "/" + program +
@@ -88,7 +88,7 @@ def runblast(program, local, qfile, db, evalue, outcsv):
             cline()
 
     elif program == 'blastx' :
-        if local == True :
+        if local is True :
             with open (path+"/blastx_script.sh", "w") as bxscript :
                 bxscript.write(str(blast_path) +
                                "/" + program +
