@@ -123,9 +123,9 @@ users must provide the path to the local installation of BLAST in the configurat
           evalue_nt : 0.01
 
         filter_blastn_parameters :
-         d : 10
-         l : 50
-         I : 1
+          d : 10
+          l : 50
+          I : 1
 
         blastx_parameters :
           dbpath_vrl : /home/user/db/ncbi/virnr/viruses_nr_prots.100p.faa
