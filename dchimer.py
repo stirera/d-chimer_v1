@@ -86,13 +86,13 @@ def main():
 
         if os. path. isdir(repertoire):
 
-            sys.exit('ERROR : BLASTx output directory exists : '+
+            sys.exit('ERROR : BLASTx output directory exists : ' +
                      repertoire +
                      '\n\n' + 'Please remove it before'+'\n')
 
         call_blastx_and_filter(program, local, qfile, cpt, cpt_max)
     else :
-        sys.exit('ERROR : unknown blast program ! '+
+        sys.exit('ERROR : unknown blast program ! ' +
                  'allowed values are : \n\tblastn or blastx')
 
 
