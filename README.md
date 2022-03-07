@@ -106,7 +106,9 @@ The solutions are :
 Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
 
 ##### /!\ Biopython based blast+ is used for ease of installation.
-In fact, if Biopython is installed and databases + taxonomic information available (*fullnamelineage_taxid_sorted.dmp* file), d-chimer can be used after configuring the "yaml" file. The biopython blast calls may fail with blast v5 databases. Then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running dchimer.
+In fact, if Biopython is installed and all databases along all databases, d-chimer can be used after configuring the "yaml" file. 
+The biopython blast calls may fail with blast v5 databases but work find with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
+If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running dchimer.
 
 
 ##### /!\ BLAST V5 database :
