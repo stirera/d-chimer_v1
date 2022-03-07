@@ -67,7 +67,7 @@ def runblast(program, local, qfile, db, evalue, outcsv):
                                str(qfile) + " -db " +
                                str(ntdbpath) +
                                " -num_threads " + str(nb_threads_bn) +
-                               " -evalue " +str(evalue_nt) +
+                               " -evalue " + str(evalue_nt) +
                                " -culling_limit 10 -num_alignments 10 -outfmt " +
                                '"' + str(fmtbn) + '"' +
                                " -out "+str(outcsv))
