@@ -61,18 +61,18 @@ def runblast(program, local, qfile, db, evalue, outcsv):
     if program == 'blastn' :
         if local is True :
             with open (path+"/blastn_script.sh", "w") as bnscript :
-                bnscript.write(str(blast_path) + 
+                bnscript.write(str(blast_path) +
                                "/" + program +
-                               " -task blastn -query " + 
-                               str(qfile) + " -db " + 
+                               " -task blastn -query " +
+                               str(qfile) + " -db " +
                                str(ntdbpath) +
                                " -num_threads " + str(nb_threads_bn) +
                                " -evalue " +str(evalue_nt) +
-                               " -culling_limit 10 -num_alignments 10 -outfmt " + 
+                               " -culling_limit 10 -num_alignments 10 -outfmt " +
                                '"' + str(fmtbn) + '"' +
                                " -out "+str(outcsv))
 
-            subprocess_run(['/usr/bin/bash', path+"/blastn_script.sh"], check=True)   
+            subprocess_run(['/usr/bin/bash', path+"/blastn_script.sh"], check=True)
 
         else :    
             cline=(NcbiblastnCommandline(cmd='blastn',
@@ -98,11 +98,11 @@ def runblast(program, local, qfile, db, evalue, outcsv):
                                str(nb_threads_bx) +
                                " -evalue " +
                                str(evalue_nr) +
-                               " -culling_limit 10 -num_alignments 10 -outfmt " + 
+                               " -culling_limit 10 -num_alignments 10 -outfmt " +
                                '"' + str(fmtbx) + '"' +
                                " -out "+str(outcsv))
 
-            subprocess_run(['/usr/bin/bash', path+"/blastx_script.sh"], check=True)   
+            subprocess_run(['/usr/bin/bash', path+"/blastx_script.sh"], check=True)
 
         cline=(NcbiblastxCommandline(cmd=program,
                                      out=outcsv,
