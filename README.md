@@ -115,34 +115,36 @@ users must provide the path to the local installation of BLAST in the configurat
 
 
 ## 3.3 How to configure d-chimer on your own system (d-chimer_config.yaml) ? 
-- Fill the different fields in the *d-chimer_config.yaml* file.
+- Fill the different fields in the *d-chimer_config.yaml* file :
 
-   blastn_parameters :
-     dbpath_nt : /home/stirera/work_directory/db/ncbi/nt/nt
-     nb_threads_bn : 28
-     evalue_nt : 0.01
+        blastn_parameters :
+          dbpath_nt : /home/stirera/work_directory/db/ncbi/nt/nt
+          nb_threads_bn : 28
+          evalue_nt : 0.01
 
-   filter_blastn_parameters :
-    d : 10
-    l : 50
-    I : 1
+        filter_blastn_parameters :
+         d : 10
+         l : 50
+         I : 1
 
-   blastx_parameters :
-     dbpath_vrl : /home/stirera/work_directory/db/ncbi/virnr/viruses_nr_prots.100p.faa
-     dbpath_nr : /home/stirera/work_directory/db/ncbi/nr/nr
-     nb_threads_bx : 28
-     evalue_vir : 0.1
-     evalue_nr : 0.01
+        blastx_parameters :
+          dbpath_vrl : /home/stirera/work_directory/db/ncbi/virnr/viruses_nr_prots.100p.faa
+          dbpath_nr : /home/stirera/work_directory/db/ncbi/nr/nr
+          nb_threads_bx : 28
+          evalue_vir : 0.1
+          evalue_nr : 0.01
 
-   filter_blastx_parameters :
-     d : 10
-     l : 17
-     I : 1
+        filter_blastx_parameters :
+          d : 10
+          l : 17
+          I : 1
 
-   add_taxo_parameters :
-     tax_lineages_file : /home/stirera/work_directory/db/fullnamelineage_taxid_sorted.dmp
+        add_taxo_parameters :
+          tax_lineages_file : /home/stirera/work_directory/db/fullnamelineage_taxid_sorted.dmp
 
-   blast_path : /home/stirera/tools/ncbi-blast-2.12.0+/bin
+blast_path : /home/stirera/tools/ncbi-blast-2.12.0+/bin
+
+            
 
 ## 4. **How to run d-chimer on your own system  ?**
  
