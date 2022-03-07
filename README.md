@@ -172,7 +172,7 @@ For full view of d-chimer options, type :
                               blastProgram (required) : blastn or blastx
         -L local, --local local
                               use local machine BLAST programs (required) :
-                              True/False (default : False)
+                              True/False (default : True)
         -f fastafile, --fasta fastafile
                               input fasta_file (required)
         -m max_loops, --max_recursive_loops max_loops
