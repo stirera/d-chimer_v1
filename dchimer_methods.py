@@ -265,7 +265,7 @@ def call_blastn_and_filter(program, local, qfile, cpt, cpt_max):
     outcsv = root[0] + "." + str(cpt) + ".bn.csv"
 
     print("BLASTn is running...")
-    runblast(program,local, qfile, ntdbpath, evalue_nt, outcsv)
+    runblast(program, local, qfile, ntdbpath, evalue_nt, outcsv)
     print("BLASTn finished running...")
 
     print("Filtering the BLASTn outputs ...")
