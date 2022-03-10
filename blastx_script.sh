@@ -1,1 +1,0 @@
-/home/stirera/tools/ncbi-blast-2.12.0+/bin/blastx -query NODE_r2_2.fasta -db /home/stirera/work_directory/db/ncbi/nr/nr -num_threads 28 -evalue 0.01 -culling_limit 10 -num_alignments 10 -outfmt "6 qseqid sacc pident length mismatch gaps qstart qend sstart send evalue bitscore staxid sskingdom sframe qframe qlen qseq sseq" -out NODE_r2_2.1.bx.vir.csv
