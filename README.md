@@ -202,12 +202,8 @@ Uncovered zones produced are taken and submitted to BLAST and filtered. The proc
 
 
 ### 2.4 ***Taxonomic Information add to filtered BLAST outputs:***
-After this process completes, filtered outputs (from the filter) are joined to the taxonomic information.
+After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3).
 
-
-
-
-d-chimer is provided here with to execute BLASTn or BLASTx (using protein database) using the -p option.
 
 ## 3. **How to install d-chimer on your own system ?**
 - Clone or download the d-chimer repository into your system.   
