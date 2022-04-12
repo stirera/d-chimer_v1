@@ -189,16 +189,16 @@ Disentangle chimeric (d-chimer) sequences in de novo assembled viromes/metagenom
 - Contigs can be only partly covered in a single BLAST search 
 - Contigs can be covered by different genes from different organisms
 
-## 2. **How does d-chimer proceed ?**
+## 2. **How does d-chimer proceed ? (d-chimer overview scheme)**
 d-chimer handles the chimeric sequences by using:
 ### 2.1 ***BLAST:*** 
 BLAST is used to make homology search of input sequences against a reference database; either nucleotides or proteins database.
-### 2.2 ***A filter:*** 
+### 2.2 ***A filter (section (b) of d-chimer overview scheme):*** 
 The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
 The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
 
 ### 2.3 ***Recursive execution of BLAST and the filter:*** 
-Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced (section (a) of d-chimer overview scheme).
+Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
 
 ### 2.4 ***Taxonomic Information add to filtered BLAST outputs:***
