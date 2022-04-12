@@ -97,7 +97,7 @@ For viromes, a database of only viruses were created and deduplicated using cd-h
 Using the d-chimer BLASTx version provided here requires a two ways BLASTx. 
 
 The solutions are :
-- ousers can create such database or a similar one according to their needs.
+- users can create such database or a similar one according to their needs.
 
 - or change the code (*call_blast_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3.3***** ).
 
@@ -264,7 +264,7 @@ For viromes, a database of only viruses were created and deduplicated using cd-h
 Using the d-chimer BLASTx version provided here requires a two ways BLASTx. 
 
 The solutions are :
-- ousers can create such database or a similar one according to their needs.
+- users can create such database or a similar one according to their needs.
 
 - or change the code (*call_blast_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3.3***** ).
 
