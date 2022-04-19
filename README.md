@@ -1,4 +1,6 @@
 # d-chimer_v1
+Users can go to sections 3 and 4 for installation, configuration and usage.
+
 ## 1. **What is d-chimer for ?**
 Disentangle chimeric (d-chimer) sequences in de novo assembled viromes/metagenomes is a BLAST based pipeline conceived for taxonomic assignments by taking into account that :
 - Contigs (or any query sequence) can be only partly covered in a single BLAST search 
