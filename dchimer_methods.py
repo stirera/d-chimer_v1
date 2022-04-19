@@ -156,7 +156,7 @@ def gather_matchingSequences(outvircsv, qfile, vposqfile, vposlist):
     to get the list of contigs matching viral database
     """
     vposlist="".join(outvircsv.split(".")[0:-1]) + ".list"
-    subrocess_run('cut', '-f1', outvircsv, '|', 'sort', '-u', '>', vposlist)
+    subprocess_run('cut', '-f1', outvircsv, '|', 'sort', '-u', '>', vposlist)
     #subprocess_run(['/usr/bin/bash', path+"/cutblastc1.sh", outvircsv], check=True)
     extract_idLists_fromFasta(vposlist, qfile, vposqfile)
 
