@@ -155,7 +155,9 @@ def gather_matchingSequences(outvircsv, qfile, vposqfile, vposlist):
     """Using subprocess, execute a bash script cutblastc1.sh
     to get the list of contigs matching viral database
     """
-    subprocess_run(['/usr/bin/bash', path+"/cutblastc1.sh", outvircsv], check=True)
+    vposlist="".join(outvircsv.split(".")[0:-1]) + ".list"
+    subrocess_run('cut', '-f1', outvircsv, '|', 'sort', '-u', '>', vposlist)
+    #subprocess_run(['/usr/bin/bash', path+"/cutblastc1.sh", outvircsv], check=True)
     extract_idLists_fromFasta(vposlist, qfile, vposqfile)
 
 
