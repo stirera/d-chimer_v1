@@ -22,7 +22,7 @@ import sys
 
 import datetime
 import shutil
-from subprocess import run as subprocess_run
+import subprocess
 import yaml
 import re
 
@@ -76,27 +76,27 @@ def runblast(program, local, qfile, db, evalue, outcsv):
     # Here are the BLAST commands
     if program == 'blastn' :
         if local is True :
-            with open(path+"/blastn_script.sh", "w") as bnscript :
-                bnscript.write(str(blast_path) +
-                               "/" + program +
-                               " -task blastn -query " +
-                               str(qfile) + " -db " +
-                               str(ntdbpath) +
-                               " -num_threads " + str(nb_threads_bn) +
-                               " -evalue " + str(evalue_nt) +
-                               " -culling_limit 10 -num_alignments 10 -outfmt " +
-                               '"' + str(fmtbn) + '"' +
-                               " -out "+str(outcsv))
 
-            subprocess_run(['/usr/bin/bash', path+"/blastn_script.sh"], check=True)
+          cmd = [str(blast_path)+"/" + program,
+              "-task", program,
+              "-query", str(qfile),
+              "-db", str(db),
+              "-num_threads", str(nb_threads_bn),
+              "-evalue", str(evalue),
+              "-culling_limit", str(10),
+              "-num_alignments", str(10),
+              "-outfmt", str(fmtbn),
+              "-out", str(outcsv)]
+
+          subprocess.run(cmd)
 
         else :
             cline=(NcbiblastnCommandline(cmd='blastn',
                                          out=outcsv,
                                          outfmt=fmtbn,
                                          query=qfile,
-                                         db=ntdbpath,
-                                         evalue=evalue_nt,
+                                         db=db,
+                                         evalue=evalue,
                                          num_threads=nb_threads_bn,
                                          culling_limit=10 ,
                                          num_alignments=10 ,
@@ -104,23 +104,24 @@ def runblast(program, local, qfile, db, evalue, outcsv):
             cline()
 
     elif program == 'blastx' :
+      # this have to be modified so that users can choose to
+      # run directly over nr.
         if local is True :
-            with open(path+"/blastx_script.sh", "w") as bxscript :
-                bxscript.write(str(blast_path) +
-                               "/" + program +
-                               " -query " + str(qfile) +
-                               " -db " + str(nrdbpath) +
-                               " -num_threads " +
-                               str(nb_threads_bx) +
-                               " -evalue " +
-                               str(evalue_nr) +
-                               " -culling_limit 10 -num_alignments 10 -outfmt " +
-                               '"' + str(fmtbx) + '"' +
-                               " -out "+str(outcsv))
 
-            subprocess_run(['/usr/bin/bash', path+"/blastx_script.sh"], check=True)
+          cmd = [str(blast_path)+'/'+ program,
+              "-query", str(qfile),
+              "-db",    str(db),
+              "-num_threads", str(nb_threads_bx),
+              "-evalue", str(evalue),
+              "-culling_limit", str(10),
+              "-num_alignments", str(10),
+              "-outfmt", str(fmtbx),
+              "-out", str(outcsv)]
 
-        cline=(NcbiblastxCommandline(cmd=program,
+          subprocess.run(cmd)
+
+        else :
+            cline=(NcbiblastxCommandline(cmd=program,
                                      out=outcsv,
                                      outfmt=fmtbx,
                                      query=qfile,
@@ -130,7 +131,7 @@ def runblast(program, local, qfile, db, evalue, outcsv):
                                      culling_limit=10,
                                      num_alignments=10))
 
-        cline()
+            cline()
 
 
 def extract_idLists_fromFasta(seqlist, fasta, listfasta):
@@ -151,13 +152,18 @@ def extract_idLists_fromFasta(seqlist, fasta, listfasta):
             outfastah.write(str(fastadict[k].seq)+"\n")
 
 
-def gather_matchingSequences(outvircsv, qfile, vposqfile, vposlist):
-    """Using subprocess, execute a bash script cutblastc1.sh
-    to get the list of contigs matching viral database
+def gather_matchingSequences(outvircsv, qfile, vposqfile):
+    """get the list of contigs matching viral database and
+    create a fasta file with those squences.
     """
-    vposlist="".join(outvircsv.split(".")[0:-1]) + ".list"
-    subprocess_run('cut', '-f1', outvircsv, '|', 'sort', '-u', '>', vposlist)
-    #subprocess_run(['/usr/bin/bash', path+"/cutblastc1.sh", outvircsv], check=True)
+    vposlist=".".join(outvircsv.split(".")[0:-1]) + ".list"
+    tmp=open("tmplist", "w+")
+    list=open(vposlist, "w")
+    p1=subprocess.run(['cut', '-f', '1', outvircsv], stdout=subprocess.PIPE)
+    tmp.write(p1.stdout.decode("utf-8")); tmp.close()
+    p2=subprocess.run(['sort', '-u', './tmplist'], stdout=subprocess.PIPE)
+    list.write(p2.stdout.decode("utf-8")) ; list.close()
+    subprocess.run(['rm', './tmplist'])
     extract_idLists_fromFasta(vposlist, qfile, vposqfile)
 
 
@@ -187,7 +193,7 @@ def taxo_postprocess(program, root, cpt):
             os.remove(tsv)
 
         else:
-            subprocess_run(['/usr/bin/bash', path+'/add_taxo.sh',
+            subprocess.run(['/usr/bin/bash', path+'/add_taxo.sh',
                            tsv, taxlineages, blasttag], check=True)
             shutil.move(tsv, repertoire)
             shutil.move(tax, repertoire)
@@ -240,7 +246,7 @@ def call_blastx_and_filter(program, local, qfile, cpt, cpt_max):
         sys.exit("empty file : " + outvircsv + "\nNoting to do !")
 
     # get contigs that matched the viral protein database
-    gather_matchingSequences(outvircsv, qfile, vposqfile, vposlist)
+    gather_matchingSequences(outvircsv, qfile, vposqfile)
 
     print("BLASTx is running... on NR db")
 
@@ -300,9 +306,8 @@ def call_blastn_and_filter(program, local, qfile, cpt, cpt_max):
                            "." + str(cpt) +
                            ".bn.fas", cpt, cpt_max)
 
-
 def filter_bx_output(fastafile, csvfile, minDec, minBpLength, loopId, program) :
-    """
+    '''
     After BLASTx is run over the nr protein database, the d-chimer filter
     (i.e., this function), takes the output csv and the BLASTx input fasta.
     The ouputs of this function are :
@@ -327,13 +332,13 @@ def filter_bx_output(fastafile, csvfile, minDec, minBpLength, loopId, program) :
 
 
     2 End exit
-    """
+    '''
     # Step 0 : Get arguments and create process id along start time
-
+    
     root = fastafile.split(".")
-
+    
     p_id = os.getpid()
-    print("filtering started with proces ID: ", p_id)
+    print ("filtering started with proces ID: ", p_id)
 
     timestart = datetime.datetime.now()
 
@@ -341,11 +346,11 @@ def filter_bx_output(fastafile, csvfile, minDec, minBpLength, loopId, program) :
     with open(fastafile, 'r') as fasta, \
          open(csvfile, 'r') as csv, \
          open(root[0]+"."+str(loopId)+".bx_neg.fasta", 'w') \
-         as neg_fasta,\
-         open(root[0]+"."+str(loopId)+".bx.fas", 'w') as uncovered, \
-         open(root[0]+"."+str(loopId)+".bx.aln", 'w') as alnfile, \
-         open(root[0]+"."+str(loopId)+".bx.filtered.tsv", 'w') \
-         as filteredcsv:
+        as neg_fasta,\
+        open(root[0]+"."+str(loopId)+".bx.fas", 'w') as uncovered, \
+        open(root[0]+"."+str(loopId)+".bx.aln", 'w') as alnfile, \
+        open(root[0]+"."+str(loopId)+".bx.filtered.tsv", 'w') \
+            as filteredcsv:
 
         seqio = SeqIO.parse(fasta, "fasta")
         csvio = CsvIO.CsvIO(csv, int(minDec), loopId, program)
@@ -354,19 +359,19 @@ def filter_bx_output(fastafile, csvfile, minDec, minBpLength, loopId, program) :
             contig = csvio.next(sequence.id)
 
             if contig:
-                print("filtering query sequence : ", contig.id)
+                print ("filtering query sequence : ", contig.id)
                 F = 0
                 for sub in contig.subject:
-                    if int(sub.length) >= int(minBpLength) :
-                        F = 1
-
-                if F == 0 :
+                    if int (sub.length) >= int(minBpLength) :
+                        F=1
+                        
+                if F==0 :
                     SeqIO.write(sequence, neg_fasta, "fasta")
-
+                    
                 contig.filter_subjects()
                 for sub in contig.selectedSubjects:
                     x = len(contig.selectedSubjects)
-                    print("found ", x, "subjects")
+                    print ("found ", x, "subjects")
 
                     subjectdata = contig.id + "\t" + \
                         sub.staxid + "\t" + \
@@ -400,20 +405,20 @@ def filter_bx_output(fastafile, csvfile, minDec, minBpLength, loopId, program) :
                 contig.get_uncovered_zones()
 
                 if contig.departs:
-                    print("recycling :")
+                    print ("recycling :")
                     rec_pool = contig.recycleseq(sequence.seq)
-
+                    
                     for r in rec_pool:
                         uncovered.write(r[0]+"\n")
                         uncovered.write(str(r[1])+"\n")
 
             else:
-                print("query sequence not in csv, negative: ", sequence.id)
+                print ("query sequence not in csv, negative: ", sequence.id)
                 SeqIO.write(sequence, neg_fasta, "fasta")
 
-    print("fin de process, ID =", p_id)
+    print ("fin de process, ID =", p_id)
     timeend = datetime.datetime.now()
-    print("start_time= ", timestart, "\n", "end_time=   ", timeend)
+    print ("start_time= ", timestart, "\n", "end_time=   ", timeend)
 
 
 def filter_bn_output(fastafile, csvfile, minDec, minBpLength, recursId, program):
