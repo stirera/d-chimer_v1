@@ -77,6 +77,8 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
  - Create a tab delimited taxo file:
  
         cat fullnamelineage.dmp|sed "s/\s\+\|\s\+//g"|sed 's/\|//2g'|awk 'BEGIN{FS="|"}{print $1,$3,$4,$2}'|sed "s/\s/\t/g"|sort -k1,1 > fullnamelineage_taxid_sorted.dmp
+
+
 #### - SOME CAUTIONS:
 
 ##### /!\ DOUBLE BLASTX-call : 
@@ -104,7 +106,7 @@ The solutions are :
       -t : tolerance for redundance
    
 
-- or Solution 2: change the code (*call_blastx_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3.3***** ).
+- or Solution 2: change the code (*call_blastx_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3 ***** ).
 
 - for review need, we provide the BLAST formatted viral proteins database used in the d-chimer paper it is available here : https://drive.google.com/file/d/1Pmv4Rt6bFf5pgO-9k_HGHw2qEUSxsxTz/view?usp=sharing.
 
