@@ -9,20 +9,20 @@ Disentangle chimeric (d-chimer) sequences in de novo assembled viromes/metagenom
  
 Once, d-chimer installed and the parameters configured (through the `d-chimer_config.yaml`, file), it can be used as follow :
 
-    python3 /path/to/git_repo dchimer.py  -p blastn -L True -f query_file.fasta *
+    python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta *
     
 \* We recommand users to execute d-chimer in the directory where they input data are. 
     
 
 By default, d-chimer runs in a recursive manner. The number of cycles can be limited by using the -m option. For example,  to limit d-chimer to two cycles :
 
-      python3 /path/to/git_repo dchimer.py  -p blastn -L True -f query_file.fasta -m 2
+      python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta -m 2
 
 
 For full view of d-chimer options, type :
 
 
-      python3 /path/to/git_clond_repo/dchimer.py -h
+      python3 /path/to/d-chimer/dchimer.py -h
 
       run a blast program and filter its outputs
 
