@@ -178,7 +178,7 @@ BLAST+ can be installed, by downloading binaries here : https://ftp.ncbi.nlm.nih
 
 download with wget : wget https://ftp.ncbi.nih.gov/blast/executables/blast+/
 
-### 6.1 BLAST databases
+### 6. BLAST databases
 BLAST databases can be downloaded from this link : https://ftp.ncbi.nlm.nih.gov/blast/db/
 
 
