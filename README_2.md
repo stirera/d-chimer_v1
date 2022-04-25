@@ -115,7 +115,7 @@ The solutions are :
       
       where :
       
-      -i : iput file
+      -i : input file
       
       -o : output file
       
