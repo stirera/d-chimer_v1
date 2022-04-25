@@ -22,7 +22,7 @@ By default, d-chimer runs in a recursive manner. The number of cycles can be lim
 For full view of d-chimer options, type :
 
 
-      python3 /path/to/git_repo dchimer.py -h
+      python3 /path/to/git_clond_repo/dchimer.py -h
 
       run a blast program and filter its outputs
 
