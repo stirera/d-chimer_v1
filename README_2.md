@@ -53,9 +53,21 @@ It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST
 - the blastn negative sequences : *testSequences.1.bn_neg.fasta*
 - a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
 - A unique folder containing named : *testSequences_bn_out/*
-  - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
-  - query/subjects alignments : *testSequences.1.bn.filtered.aln*
   - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
+  
+    It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
+
+        NODE_r2_2_length_2963_cov_4.73413       2202954 MH618085        70.058  4.68e-46        521     954     1461    832     338
+ 
+ - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
+   
+   It is an eleven column file which contains contains : *taxonomic identifiant*, *contig identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate* and *full taxomic path*
+ 
+         2202954 NODE_r2_2_length_2963_cov_4.73413       MH552562        65.545  6.95e-25        624     1163    1765    2514    1919    Viruses;unclassifiedviruses;            Circulargeneticelementsp.
+ 
+ 
+ - query/subjects alignments : *testSequences.1.bn.filtered.aln*
+ Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
 
 All these files and the folder are produced where d-chimer were executed. The same set of file are produced with blastx... everywhere "bn" is replaced by "bx".
 
