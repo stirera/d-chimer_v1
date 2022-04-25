@@ -160,7 +160,7 @@ BLAST is used to make homology search of input sequences against a reference dat
 ### 4.2 ***A filter (section (b) of d-chimer overview scheme):*** 
 The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
 The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
-
+<img src="../main_d/d-chimer_filter.png?raw=true" class="left" >
 ### 4.3 ***Recursive execution of BLAST and the filter (section (a) of d-chimer overview scheme):***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
