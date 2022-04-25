@@ -44,7 +44,7 @@ For full view of d-chimer options, type :
 #### Usage exemple with the provided input file "testSequences.fasta"
 - run d-chimer with the input file :
       
-           python3 ~/tools/d-chimer_v1-main_d/dchimer.py -p blastn -L True -f testSequences.fasta
+           python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
 
 for each cycle, will be written :
 - the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
