@@ -60,6 +60,7 @@ It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST
 All these files and the folder are produced where d-chimer were executed. The same set of file are produced with blastx... everywhere "bn" is replaced by "bx".
 
 ## 2. **Installation**
+Users can execute the `INSTALL.sh` script, to get the d-chimer and python libraries and custom data.
 ### 2.1 **d-chimer code and python libraries:** 
 - Clone or download the d-chimer repository.   
 
