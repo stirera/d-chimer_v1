@@ -166,8 +166,8 @@ The regions without any subject (uncovered zones) are cut and saved in a new fas
 ### 4.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
-d-chimer_recursion.PNG
 <img src="../main_d/d-chimer_recursion.PNG?raw=true" class="left" >
+
 ### 4.4 ***Taxonomic Information add to filtered BLAST outputs:***
 After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3).
 
