@@ -41,9 +41,26 @@ For full view of d-chimer options, type :
 
       usage : dchimer [-h] -p blastProgram -L True -f fastafile [-m] max_loops
 
+#### Usage exemple with the provided input file "testSequences.fasta"
+- run d-chimer with the input file :
+      
+           python3 ~/tools/d-chimer_v1-main_d/dchimer.py -p blastn -L True -f testSequences.fasta
+
+for each cycle, will be written :
+- the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
+It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*, *query sequence alignment* and *subject sequence alignment* 
+- the uncovered_zones : *testSequences.1.bn.fas*
+- the blastn negative sequences : *testSequences.1.bn_neg.fasta*
+- a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
+- A unique folder containing named : *testSequences_bn_out/*
+  - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
+  - query/subjects alignments : *testSequences.1.bn.filtered.aln*
+  - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
+
+All these files and the folder are produced where d-chimer were executed. The same set of file are produced with blastx... everywhere "bn" is replaced by "bx".
 
 ## 2. **Installation**
-### 2.1 ** d-chimer code and python libraries:** 
+### 2.1 **d-chimer code and python libraries:** 
 - Clone or download the d-chimer repository.   
 
              git clone https://github.com/stirera/d-chimer_v1
@@ -60,7 +77,7 @@ d-chimer depends on several python3 libraries and ncbi-BLAST and databases.
 
             pip install PyYAML
 
-### 2.2 ** d-chimer custom data :**
+### 2.2 **d-chimer custom data :**
 The taxonomic information is need in *****step 2.4 above.*****
 It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 
