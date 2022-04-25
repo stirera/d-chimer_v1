@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-git clone https://github.com/stirera/d-chimer_v1
+
 pip install biopython
 pip install PyYAML
 wget "https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
