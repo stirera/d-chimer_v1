@@ -157,14 +157,17 @@ users must provide the path to the local installation of BLAST in the configurat
 d-chimer handles the chimeric sequences by using:
 ### 4.1 ***BLAST:*** 
 BLAST is used to make homology search of input sequences against a reference database; either nucleotides or proteins database.
-### 4.2 ***A filter (section (b) of d-chimer overview scheme):*** 
+### 4.2 ***A filter:*** 
 The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
 The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
+
 <img src="../main_d/d-chimer_filter.png?raw=true" class="left" >
-### 4.3 ***Recursive execution of BLAST and the filter (section (a) of d-chimer overview scheme):***
+
+### 4.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
-
+d-chimer_recursion.PNG
+<img src="../main_d/d-chimer_recursion.PNG?raw=true" class="left" >
 ### 4.4 ***Taxonomic Information add to filtered BLAST outputs:***
 After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3).
 
