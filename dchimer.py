@@ -45,8 +45,8 @@ def opts_and_args():
                         '--local',
                         type=bool,
                         help="""use local machine BLAST programs or Biopython embedded ones (required) :
-                                if True local machine programs are used 
-                                if False biopython one are used""",
+                                if True local machine BLAST programs are used 
+                                if False biopython ones are used""",
                         dest='local',
                         metavar='local',
                         required=True,
