@@ -1,6 +1,6 @@
 # d-chimer_v1
 
-The aim of d-chimer is to detect and assign fragment of contigs included in chimeric sequences during taxonomic assignment with BLAST. It first executes BLAST and filter its results and recycles unassaigned contig fragments.
+The aim of d-chimer pipeline is to detect and assign fragments of contigs included in chimeric sequences during taxonomic assignment with BLAST. It first executes BLAST and filters its results and recycles unassaigned contig fragments.
 
 
 d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases. In the BLASTn version, a cycle is made of i) a search against a nucleotide database (ncbi nt), ii) filtering of the outputs where recycling is done and ends with iii) taxonomic identification by adding full lineage path and names.
@@ -9,8 +9,10 @@ The BLASTx version runs first using a custom viral protein database and the matc
 In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx (see figure below).
 
 
+  <img src="../img/global_d-chimer.png?raw=true" class="left">
 
-  <img src="../img/global_d-chimer.png?raw=true" class="left" >
+###### figure 1 : d-chimer usage with BLASTn version followed by BLASTx (two way BLASTx).
+
 
 ## 1. Usage
  
@@ -57,42 +59,44 @@ For full view of d-chimer options, type :
 
 
 ## 2.  Usage exemple with the provided input file "testSequences.fasta"
-- run d-chimer blastn with the input file :
+### 2.1 run d-chimer blastn with the input file :
       
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
 
   for each cycle, will be written :
-  - the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
+ - The blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
   It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*,   *query sequence alignment* and *subject sequence alignment* 
-  - the uncovered_zones : *testSequences.1.bn.fas*
-  - the blastn negative sequences : *testSequences.1.bn_neg.fasta*
-  - a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
-  - A unique folder containing named : *testSequences_bn_out/*
-  - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
+ - The uncovered_zones : *testSequences.1.bn.fas*
+ - The blastn negative sequences : *testSequences.1.bn_neg.fasta*
+ - A file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
+ - A folder containing the final outputs, named : *testSequences_bn_out/*
+ - The filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
   
     It is a ten column file which contains contains : *contig identifiant* (line 1), *taxonomic identifiant* (line 2), *subject accession number* (line 3), *identity percent* (line 4), *e-value* (line 5),          *alignment length* (line 6), *query alignment start coordinate* (line 7), *query alignment end coordinate* (line 7), *subject alignment start coordinate* (line 8), *subject alignment end coordinate* (line 8).
 
  <img src="../img/d_chimer_test_bn_output2.PNG?raw=true" class="left" >
+ 
+ ###### figure 2 : description of filtered outputs of BLAST before taxonomic paths are added.
         
-        
-  - taxomony associated filered output (see the image below) : *testSequences.1.bn.filtered.taxo*
+ 
+  - Taxomony associated filered output (see the image below) : *testSequences.1.bn.filtered.taxo*
    
    It is an eleven column file which contains contains : *taxonomic identifiant* (line 1), *contig identifiant* (line 2), *subject accession number* (line 3), *identity percent* (line 4), *e-value* (line 5), *alignment length* (line 6), *query alignment start coordinate* (line 7), *query alignment end coordinate* (line 7), *subject alignment start coordinate* (line 8), *subject alignment end coordinate* (line 8) and *full taxomic path* (line 9)
    
   <img src="../img/d_chimer_test_bn_output.PNG?raw=true" class="left" >
 
-
+###### figure 3 : description of filtered outputs of BLAST with taxonomic paths.
 
    - query/subjects alignments : *testSequences.1.bn.filtered.aln*
    Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
 
-- run d-chimer blastx with the input file :
+### 2.2 run d-chimer blastx with the input file :
 
-   A similar set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced :
+  A similar set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced :
 
-    - BLASTx against viral database output : *testSequences.bx.vir.csv*  
-    - List of matching sequences against the viral database : *test_1.1.bx.vir.list*
-    - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas*
+   - BLASTx against viral database output : *testSequences.bx.vir.csv*  
+   - List of matching sequences against the viral database : *test_1.1.bx.vir.list*
+   - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas*
 
 d-chimer produces all the outputs in the repository where it was launched.
 
@@ -201,10 +205,14 @@ The regions without any subject (uncovered zones) are cut and saved in a new fas
 
 <img src="../img/d-chimer_filter.png?raw=true" class="left" >
 
+###### figure 4 : d-chimer filter description
+
 ### 5.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
 <img src="../img/d-chimer_recursion.PNG?raw=true" class="left" >
+
+###### figure 5 : d-chimer recursive execution 
 
 ### 5.4 ***Taxonomic Information add to filtered BLAST outputs:***
 After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3.2.1).
@@ -229,8 +237,6 @@ If blast+ programs are installed, ncbi nucleotide and protein databases can be d
       update_blastdb.pl nr
 
 ##### /!\ Biopython based blast+ is used for ease of installation but cannot handle the ncbi V5 databases.
-In fact, if Biopython is installed along all databases, d-chimer can be used after configuring the "yaml" file. 
-The biopython blast calls may fail with blast v5 databases but work find with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
-If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running d-chimer.
+ The biopython blast calls fail with blast v5 databases but work fine with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
+If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the `yaml` file (by providing absolute pathq to the local installation of BLAST+ binaries repository and databases) and use the "-L True" option when running d-chimer.
 
-With BLAST V5 databases, users must provide the path to the local installation of BLAST in the configuration file d-chimer_config.yaml.
