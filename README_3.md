@@ -64,7 +64,7 @@ For full view of d-chimer options, type :
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
 
   for each cycle, will be written :
- - The blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
+ - The blastn hits : *testSequences.1.bn.csv* (cycle 1 blastn hits).
   It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*,   *query sequence alignment* and *subject sequence alignment* 
  - The uncovered_zones : *testSequences.1.bn.fas*
  - The blastn negative sequences : *testSequences.1.bn_neg.fasta*
@@ -102,7 +102,7 @@ d-chimer produces all the outputs in the repository where it was launched.
 
 
 ## 3. Installation
-Users can execute the `INSTALL.sh` bash script once this repo is cloned, to get the d-chimer and python libraries and custom data.
+Users can execute the `INSTALL.sh` bash script once this repo is cloned, to get d-chimer source code, the python libraries and custom data.
 ### 3.1 d-chimer code and python libraries : 
 - Clone or download the d-chimer repository.   
 
@@ -121,8 +121,8 @@ d-chimer depends on several python3 libraries and ncbi-BLAST and databases.
             pip install PyYAML
 
 ### 3.2 **d-chimer custom data :**
-#### 3.2.1 taxonomic information :
-The taxonomic information is need in *****step 5.4 below.*****
+#### 3.2.1 taxonomic lineages :
+The taxonomic full lineage paths are need for d-chimer to complete its run correctly ***** see also section 5.4 below fo details.*****
 It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 
 - Using unix wget command (for example) to download:  
@@ -137,7 +137,7 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
        
  - Create a tab delimited taxo file :
  
- The command used here reformats the original NCBI `fullnamelineage.dmp` file into a tab taxid sorted tabulated file.
+ The command used here reformats the original NCBI `fullnamelineage.dmp` file into a `taxid sorted` tabulated file named `fullnamelineage_taxid_sorted.dmp`.
  
         cat fullnamelineage.dmp|sed "s/\s\+\|\s\+//g"|sed 's/\|//2g'|awk 'BEGIN{FS="|"}{print $1,$3,$4,$2}'|sed "s/\s/\t/g"|sort -k1,1 > fullnamelineage_taxid_sorted.dmp
 
@@ -162,7 +162,7 @@ Using the d-chimer BLASTx version provided here requires a two ways BLASTx.
 
 -  We provide the BLAST formatted viral proteins database used in the d-chimer paper it is available here : https://drive.google.com/file/d/1Pmv4Rt6bFf5pgO-9k_HGHw2qEUSxsxTz/view?usp=sharing.
 
-Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
+Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file (section 4, below).  
 
 
 ## 4. How to configure d-chimer (d-chimer_config.yaml) ? 
@@ -208,7 +208,7 @@ The regions without any subject (uncovered zones) are cut and saved in a new fas
 ###### figure 4 : d-chimer filter description
 
 ### 5.3 ***Recursive execution of BLAST and the filter:***
-Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
+Uncovered zones produced are taken and re-submitted to BLAST and filtered, in a new cycle. The process ends when no uncovered zones are found or no BLAST hit is produced or maximum number cycles is reached.
 
 <img src="../img/d-chimer_recursion.PNG?raw=true" class="left" >
 
@@ -237,6 +237,6 @@ If blast+ programs are installed, ncbi nucleotide and protein databases can be d
       update_blastdb.pl nr
 
 ##### /!\ Biopython based blast+ is used for ease of installation but cannot handle the ncbi V5 databases.
- The biopython blast calls fail with blast v5 databases but work fine with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
-If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the `yaml` file (by providing absolute pathq to the local installation of BLAST+ binaries repository and databases) and use the "-L True" option when running d-chimer.
+The biopython blast calls fail with blast v5 databases but works fine with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
+To use v5 databases, then one have to install local BLAST+ programs and databases, configure accordingly the `yaml` file (by providing absolute pathq to the local installation of BLAST+ binaries repository and databases) and use the "-L True" option when running d-chimer.
 
