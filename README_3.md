@@ -8,7 +8,7 @@ The BLASTx version runs first using a custom viral protein database and the matc
 In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx.
 
 
-## 1. **Usage**
+## 1. Usage
  
 Once d-chimer installed (see section 2 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 3), it can be used as follow *:
 
@@ -48,7 +48,7 @@ For full view of d-chimer options, type :
                               maximum number of times to process uncovered zones fasta
 
 
-#### Usage exemple with the provided input file "testSequences.fasta"
+####  Usage exemple with the provided input file "testSequences.fasta"
 - run d-chimer blastn with the input file :
       
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
@@ -87,9 +87,9 @@ For full view of d-chimer options, type :
 d-chimer produces all the outputs in the repository where it was launched.
 
 
-## 2. **Installation**
+## 2. Installation
 Users can execute the `INSTALL.sh` bash script once this repo is cloned, to get the d-chimer and python libraries and custom data.
-### 2.1 **d-chimer code and python libraries:** 
+### 2.1 d-chimer code and python libraries : 
 - Clone or download the d-chimer repository.   
 
              git clone https://github.com/stirera/d-chimer_v1
