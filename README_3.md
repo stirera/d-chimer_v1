@@ -52,14 +52,14 @@ For full view of d-chimer options, type :
       
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
 
-for each cycle, will be written :
-- the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
-It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*, *query sequence alignment* and *subject sequence alignment* 
-- the uncovered_zones : *testSequences.1.bn.fas*
-- the blastn negative sequences : *testSequences.1.bn_neg.fasta*
-- a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
-- A unique folder containing named : *testSequences_bn_out/*
-  - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
+  for each cycle, will be written :
+  - the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
+  It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*, *query sequence alignment* and *subject sequence alignment* 
+  - the uncovered_zones : *testSequences.1.bn.fas*
+  - the blastn negative sequences : *testSequences.1.bn_neg.fasta*
+  - a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
+  - A unique folder containing named : *testSequences_bn_out/*
+    - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
   
     It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
 
