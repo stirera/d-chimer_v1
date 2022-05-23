@@ -13,7 +13,7 @@ In the the d-chimer publication, datasets were first submitted to d-chimer BLAST
 Once d-chimer installed (see section 2 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 3), it can be used as follow *:
 
     python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta
-or     
+or
     python3 /path/to/d-chimer/dchimer.py  -p blastx -L True -f query_file.fasta
     
 \* We recommand users to execute d-chimer in the directory where they input data are. 
@@ -67,6 +67,8 @@ For full view of d-chimer options, type :
   - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
    
    It is an eleven column file which contains contains : *taxonomic identifiant*, *contig identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate* and *full taxomic path*
+   
+  <img src="../main_d/d_chimer_test_bn_output.PNG?raw=true" class="left" >
  
          2202954 NODE_r2_2_length_2963_cov_4.73413       MH552562        65.545  6.95e-25        624     1163    1765    2514    1919    Viruses;unclassifiedviruses;            Circulargeneticelementsp.
  
@@ -76,11 +78,11 @@ For full view of d-chimer options, type :
 
 - run d-chimer blastx with the input file :
 
-   The same set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced when blastx is used:
+   A similar set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced :
 
-    - BLASTx against viral database output : *testSequences.bx.vir.csv  
-    - List of matching sequences against the viral database : *test_1.1.bx.vir.list
-    - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas
+    - BLASTx against viral database output : *testSequences.bx.vir.csv*  
+    - List of matching sequences against the viral database : *test_1.1.bx.vir.list*
+    - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas*
 
 d-chimer produces all the outputs in the repository where it was launched.
 
