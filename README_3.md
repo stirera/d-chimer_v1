@@ -64,15 +64,14 @@ For full view of d-chimer options, type :
     It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*,          *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
 
         
-  - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
+  - taxomony associated filered output (see the image below) : *testSequences.1.bn.filtered.taxo*
    
-   It is an eleven column file which contains contains : *taxonomic identifiant*, *contig identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate* and *full taxomic path*
+   It is an eleven column file which contains contains : *taxonomic identifiant* (line 1), *contig identifiant* (line 2), *subject accession number* (line 3), *identity percent* (line 4), *e-value* (line 5), *alignment length* (line 6), *query alignment start coordinate* (line 7), *query alignment end coordinate* (line 7), *subject alignment start coordinate* (line 8), *subject alignment end coordinate* (line 8) and *full taxomic path* (line 9)
    
   <img src="../main_d/d_chimer_test_bn_output.PNG?raw=true" class="left" >
- 
-         2202954 NODE_r2_2_length_2963_cov_4.73413       MH552562        65.545  6.95e-25        624     1163    1765    2514    1919    Viruses;unclassifiedviruses;            Circulargeneticelementsp.
- 
- 
+
+
+
    - query/subjects alignments : *testSequences.1.bn.filtered.aln*
    Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
 
