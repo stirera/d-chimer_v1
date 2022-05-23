@@ -3,10 +3,14 @@
 The aim of d-chimer is to detect and assign fragment of contigs included in chimeric sequences during taxonomic assignment with BLAST. It first executes BLAST and filter its results and recycles unassaigned contig fragments.
 
 
-d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases. In the BLASTn version, a cycle is made of i) a search against a nucleotide database (ncbi nt), ii) filtering of the outputs where recycling is done and ends with iii) taxonomic identification.  
-The BLASTx version runs first using a custom viral protein database and the matching sequences undergo a second BLASTx against the whole protein database (ncbi nr).
-In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx.
+d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases. In the BLASTn version, a cycle is made of i) a search against a nucleotide database (ncbi nt), ii) filtering of the outputs where recycling is done and ends with iii) taxonomic identification.
 
+The BLASTx version runs first using a custom viral protein database and the matching sequences undergo a second BLASTx against the whole protein database (ncbi nr).
+In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx (see figure below).
+
+
+
+  <img src="../img/global_d-chimer.png?raw=true" class="left" >
 
 ## 1. Usage
  
@@ -28,9 +32,12 @@ By default, d-chimer runs in a recursive manner. The number of cycles can be lim
 For full view of d-chimer options, type :
 
 
+
       python3 /path/to/d-chimer/dchimer.py -h
 
-      usage: dchimer.py [-h] -p blastprogram -L local -f fastafile [-m max_loops]
+
+      usage: dchimer.py [-h] -p blastprogram -L True | False -f fastafile
+                  [-m max_loops]
 
       run a blast program and filter its outputs
 
@@ -38,14 +45,15 @@ For full view of d-chimer options, type :
         -h, --help            show this help message and exit
         -p blastprogram, --program blastprogram
                               blastProgram (required) : blastn or blastx
-        -L local, --local local
+        -L True | False, --local True | False
                               use local machine BLAST+ programs or Biopython
-                              embedded ones (required) : True = use local AND 
-                              False = use Biopython BLAST+
+                              embedded ones (required) : True = use local AND False
+                              = use Biopython BLAST+
         -f fastafile, --fasta fastafile
                               input fasta_file (required)
         -m max_loops, --max_recursive_loops max_loops
-                              maximum number of times to process uncovered zones fasta
+                              maximum number of times to process uncovered zones
+                              fasta
 
 
 ####  Usage exemple with the provided input file "testSequences.fasta"
@@ -62,14 +70,16 @@ For full view of d-chimer options, type :
   - A unique folder containing named : *testSequences_bn_out/*
   - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
   
-    It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*,          *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
+    It is a ten column file which contains contains : *contig identifiant* (line 1), *taxonomic identifiant* (line 2), *subject accession number* (line 3), *identity percent* (line 4), *e-value* (line 5),          *alignment length* (line 6), *query alignment start coordinate* (line 7), *query alignment end coordinate* (line 7), *subject alignment start coordinate* (line 8), *subject alignment end coordinate* (line 8).
 
+ <img src="../img/d_chimer_test_bn_output2.PNG?raw=true" class="left" >
+        
         
   - taxomony associated filered output (see the image below) : *testSequences.1.bn.filtered.taxo*
    
    It is an eleven column file which contains contains : *taxonomic identifiant* (line 1), *contig identifiant* (line 2), *subject accession number* (line 3), *identity percent* (line 4), *e-value* (line 5), *alignment length* (line 6), *query alignment start coordinate* (line 7), *query alignment end coordinate* (line 7), *subject alignment start coordinate* (line 8), *subject alignment end coordinate* (line 8) and *full taxomic path* (line 9)
    
-  <img src="../main_d/d_chimer_test_bn_output.PNG?raw=true" class="left" >
+  <img src="../img/d_chimer_test_bn_output.PNG?raw=true" class="left" >
 
 
 
@@ -187,12 +197,12 @@ BLAST is used to make homology search of input sequences against a reference dat
 The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
 The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
 
-<img src="../main_d/d-chimer_filter.png?raw=true" class="left" >
+<img src="../img/d-chimer_filter.png?raw=true" class="left" >
 
 ### 4.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
-<img src="../main_d/d-chimer_recursion.PNG?raw=true" class="left" >
+<img src="../img/d-chimer_recursion.PNG?raw=true" class="left" >
 
 ### 4.4 ***Taxonomic Information add to filtered BLAST outputs:***
 After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3).
