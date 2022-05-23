@@ -14,7 +14,7 @@ In the the d-chimer publication, datasets were first submitted to d-chimer BLAST
 
 ## 1. Usage
  
-Once d-chimer installed (see section 2 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 3), it can be used as follow *:
+Once d-chimer installed (see section 3 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 4), it can be used as follow *:
 
     python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta
 or
@@ -56,7 +56,7 @@ For full view of d-chimer options, type :
                               fasta
 
 
-####  Usage exemple with the provided input file "testSequences.fasta"
+## 2.  Usage exemple with the provided input file "testSequences.fasta"
 - run d-chimer blastn with the input file :
       
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
@@ -97,9 +97,9 @@ For full view of d-chimer options, type :
 d-chimer produces all the outputs in the repository where it was launched.
 
 
-## 2. Installation
+## 3. Installation
 Users can execute the `INSTALL.sh` bash script once this repo is cloned, to get the d-chimer and python libraries and custom data.
-### 2.1 d-chimer code and python libraries : 
+### 3.1 d-chimer code and python libraries : 
 - Clone or download the d-chimer repository.   
 
              git clone https://github.com/stirera/d-chimer_v1
@@ -116,9 +116,9 @@ d-chimer depends on several python3 libraries and ncbi-BLAST and databases.
 
             pip install PyYAML
 
-### 2.2 **d-chimer custom data :**
-#### 2.2.1 taxonomic information :
-The taxonomic information is need in *****step 2.4 above.*****
+### 3.2 **d-chimer custom data :**
+#### 3.2.1 taxonomic information :
+The taxonomic information is need in *****step 5.4 below.*****
 It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 
 - Using unix wget command (for example) to download:  
@@ -133,9 +133,11 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
        
  - Create a tab delimited taxo file :
  
+ The command used here reformats the original NCBI `fullnamelineage.dmp` file into a tab taxid sorted tabulated file.
+ 
         cat fullnamelineage.dmp|sed "s/\s\+\|\s\+//g"|sed 's/\|//2g'|awk 'BEGIN{FS="|"}{print $1,$3,$4,$2}'|sed "s/\s/\t/g"|sort -k1,1 > fullnamelineage_taxid_sorted.dmp
 
-#### 2.2.2 custom viral database.
+#### 3.2.2 custom viral database.
 Using the ncbi nr database directly were too long for BLASTx searche, we used a custom database for the BLASTx version. 
 It is made by downloading all proteing sequences in ncbi nr protein database.
 The produced fasta file was deduplicated using cd-hit (http://weizhong-lab.ucsd.edu/cd-hit/ or https://github.com/weizhongli/cdhit). 
@@ -159,7 +161,7 @@ Using the d-chimer BLASTx version provided here requires a two ways BLASTx.
 Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
 
 
-## 3. How to configure d-chimer (d-chimer_config.yaml) ? 
+## 4. How to configure d-chimer (d-chimer_config.yaml) ? 
 - Fill the different fields in the *d-chimer_config.yaml* file :
 
         blastn_parameters :
@@ -189,25 +191,25 @@ Once the zip file downloaded and decompressed, users must specify its path in th
          
           blast_path : /home/user/tools/ncbi-blast-2.12.0+/bin
 
-## 4. **How does d-chimer proceed ? (d-chimer overview scheme)**
+## 5. **How does d-chimer proceed ? (d-chimer overview scheme)**
 d-chimer handles the chimeric sequences by using:
-### 4.1 ***BLAST:*** 
+### 5.1 ***BLAST:*** 
 BLAST is used to make homology search of input sequences against a reference database; either nucleotides or proteins database.
-### 4.2 ***A filter:*** 
+### 5.2 ***A filter:*** 
 The d-chimer filter analyses coordinates of subjects aligned by BLAST on queries to build stacks of subjects aligning at the same regions of the query. The top scoring subject for each stack is kept.
 The regions without any subject (uncovered zones) are cut and saved in a new fasta file. They will be re-submitted automatically to BLAST.
 
 <img src="../img/d-chimer_filter.png?raw=true" class="left" >
 
-### 4.3 ***Recursive execution of BLAST and the filter:***
+### 5.3 ***Recursive execution of BLAST and the filter:***
 Uncovered zones produced are taken and submitted to BLAST and filtered. The process ends when no uncovered zones are found or no BLAST hit is produced.
 
 <img src="../img/d-chimer_recursion.PNG?raw=true" class="left" >
 
-### 4.4 ***Taxonomic Information add to filtered BLAST outputs:***
-After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3).
+### 5.4 ***Taxonomic Information add to filtered BLAST outputs:***
+After this process completes, filtered outputs (from the filter) are joined to the taxonomic information (using `fullnamelineage_taxid_sorted.dmp` file ; see section 3.2.1).
 
-### 5. Appendix : INSTALL BLAST+ programs and databases
+### 6. Appendix : INSTALL BLAST+ programs and databases
 Users can either use custon databases and configure conveniently database paths in yaml files and taxonomic information as indicated in section 3.
 
 BLAST+ can be installed, by downloading binaries here : https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
