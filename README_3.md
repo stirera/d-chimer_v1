@@ -1,13 +1,20 @@
 # d-chimer_v1
 
 The aim of d-chimer is to detect and assign fragment of contigs included in chimeric sequences during taxonomic assignment with BLAST. It first executes BLAST and filter its results and recycles unassaigned contig fragments.
-d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases.  
+
+
+d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases. In the BLASTn version, a cycle is made of i) a search against a nucleotide database (ncbi nt), ii) filtering of the outputs where recycling is done and ends with iii) taxonomic identification.  
+The BLASTx version runs first using a custom viral protein database and the matching sequences undergo a second BLASTx against the whole protein database (ncbi nr).
+In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx.
+
 
 ## 1. **Usage**
  
 Once d-chimer installed (see section 2 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 3), it can be used as follow *:
 
-    python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta 
+    python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta
+or     
+    python3 /path/to/d-chimer/dchimer.py  -p blastx -L True -f query_file.fasta
     
 \* We recommand users to execute d-chimer in the directory where they input data are. 
     
@@ -41,7 +48,7 @@ For full view of d-chimer options, type :
 
 
 #### Usage exemple with the provided input file "testSequences.fasta"
-- run d-chimer with the input file :
+- run d-chimer blastn with the input file :
       
            python3 /path/to/d-chimer/dchimer.py -p blastn -L True -f testSequences.fasta
 
@@ -67,7 +74,16 @@ It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST
  - query/subjects alignments : *testSequences.1.bn.filtered.aln*
  Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
 
-All these files and the folder are produced where d-chimer were executed. The same set of file are produced with blastx... everywhere "bn" is replaced by "bx".
+- run d-chimer blastx with the input file :
+
+The same set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced when blastx is used:
+
+ - BLASTx against viral database output : *testSequences.bx.vir.csv  
+ - List of matching sequences against the viral database : *test_1.1.bx.vir.list
+ - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas
+
+d-chimer produces all the outputs in the repository where it was launched.
+
 
 ## 2. **Installation**
 Users can execute the `INSTALL.sh` bash script once this repo is cloned, to get the d-chimer and python libraries and custom data.
@@ -89,6 +105,7 @@ d-chimer depends on several python3 libraries and ncbi-BLAST and databases.
             pip install PyYAML
 
 ### 2.2 **d-chimer custom data :**
+#### 2.2.1 taxonomic information :
 The taxonomic information is need in *****step 2.4 above.*****
 It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 
@@ -102,24 +119,15 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
     
        tar xzf new_taxdump.tar.gz
        
- - Create a tab delimited taxo file:
+ - Create a tab delimited taxo file :
  
         cat fullnamelineage.dmp|sed "s/\s\+\|\s\+//g"|sed 's/\|//2g'|awk 'BEGIN{FS="|"}{print $1,$3,$4,$2}'|sed "s/\s/\t/g"|sort -k1,1 > fullnamelineage_taxid_sorted.dmp
 
-
-#### - SOME CAUTIONS:
-
-##### /!\ DOUBLE BLASTX-call : 
-we used a custom database for the BLASTx version. 
-
-In fact, using the ncbi nr database directly were too long for a BLASTx search. 
-
-For viromes, a database of only viruses were created and deduplicated using cd-hit (http://weizhong-lab.ucsd.edu/cd-hit/ or https://github.com/weizhongli/cdhit). 
-Using the d-chimer BLASTx version provided here requires a two ways BLASTx. 
-
-The solutions are :
-- Solution 1: users can create such database or a similar one according to their needs.
-   - download proteins from ncbi and dereplicate using cd-hit :
+#### 2.2.2 custom viral database.
+Using the ncbi nr database directly were too long for BLASTx searche, we used a custom database for the BLASTx version. 
+It is made by downloading all proteing sequences in ncbi nr protein database.
+The produced fasta file was deduplicated using cd-hit (http://weizhong-lab.ucsd.edu/cd-hit/ or https://github.com/weizhongli/cdhit). 
+Using the d-chimer BLASTx version provided here requires a two ways BLASTx.
  
         cd-hit -i input_viruses.fna -o viruses_nr_prots.100p.faa -c 1.00 -t 1
       
@@ -134,21 +142,9 @@ The solutions are :
       -t : tolerance for redundance
    
 
-- or Solution 2: change the code (*call_blastx_and_filter* method in *d-chimer_methods.py* file). The corresponding “yaml” configuration file have to be changed accordingly (see *****section 3 ***** ).
-
-- for review need, we provide the BLAST formatted viral proteins database used in the d-chimer paper it is available here : https://drive.google.com/file/d/1Pmv4Rt6bFf5pgO-9k_HGHw2qEUSxsxTz/view?usp=sharing.
+-  We provide the BLAST formatted viral proteins database used in the d-chimer paper it is available here : https://drive.google.com/file/d/1Pmv4Rt6bFf5pgO-9k_HGHw2qEUSxsxTz/view?usp=sharing.
 
 Once the zip file downloaded and decompressed, users must specify its path in the *d-chimer_config.yaml* file.  
-
-##### /!\ Biopython based blast+ is used for ease of installation.
-In fact, if Biopython is installed along all databases, d-chimer can be used after configuring the "yaml" file. 
-The biopython blast calls may fail with blast v5 databases but work find with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
-If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running d-chimer.
-
-
-##### /!\ BLAST V5 database :
-
-users must provide the path to the local installation of BLAST in the configuration file d-chimer_config.yaml (see exemple below).
 
 
 ## 3. How to configure d-chimer (d-chimer_config.yaml) ? 
@@ -217,3 +213,10 @@ If blast+ programs are installed, ncbi nucleotide and protein databases can be d
 - protein database
 
       update_blastdb.pl nr
+
+##### /!\ Biopython based blast+ is used for ease of installation but cannot handle the ncbi V5 databases.
+In fact, if Biopython is installed along all databases, d-chimer can be used after configuring the "yaml" file. 
+The biopython blast calls may fail with blast v5 databases but work find with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
+If using v5 databases, then one have to install local BLAST+ programs, configure accordingly the yaml file and use the "-L True" option when running d-chimer.
+
+With BLAST V5 databases, users must provide the path to the local installation of BLAST in the configuration file d-chimer_config.yaml.
