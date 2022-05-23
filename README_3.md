@@ -1,15 +1,13 @@
 # d-chimer_v1
 
-Disentangle chimeric (d-chimer) sequences in de novo assembled viromes/metagenomes is a BLAST based pipeline conceived for taxonomic assignments by taking into account that :
-- Contigs can be only partly covered in a single BLAST search 
-- Contigs can be covered by different genes from different organisms
-
+The aim of d-chimer is to detect and assign fragment of contigs included in chimeric sequences during taxonomic assignment with BLAST. It first executes BLAST and filter its results and recycles unassaigned contig fragments.
+d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases.  
 
 ## 1. **Usage**
  
-Once, d-chimer installed and the parameters configured (through the `d-chimer_config.yaml`, file), it can be used as follow :
+Once d-chimer installed (see section 2 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 3), it can be used as follow *:
 
-    python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta *
+    python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta 
     
 \* We recommand users to execute d-chimer in the directory where they input data are. 
     
@@ -24,6 +22,8 @@ For full view of d-chimer options, type :
 
       python3 /path/to/d-chimer/dchimer.py -h
 
+      usage: dchimer.py [-h] -p blastprogram -L local -f fastafile [-m max_loops]
+
       run a blast program and filter its outputs
 
       optional arguments:
@@ -31,15 +31,14 @@ For full view of d-chimer options, type :
         -p blastprogram, --program blastprogram
                               blastProgram (required) : blastn or blastx
         -L local, --local local
-                              use local machine BLAST programs (required) :
-                              True/False (default : True)
+                              use local machine BLAST+ programs or Biopython
+                              embedded ones (required) : True = use local AND 
+                              False = use Biopython BLAST+
         -f fastafile, --fasta fastafile
                               input fasta_file (required)
         -m max_loops, --max_recursive_loops max_loops
-                              maximum number of times to to process uncovered zones
-                              fasta      
+                              maximum number of times to process uncovered zones fasta
 
-      usage : dchimer [-h] -p blastProgram -L True -f fastafile [-m] max_loops
 
 #### Usage exemple with the provided input file "testSequences.fasta"
 - run d-chimer with the input file :
@@ -57,8 +56,7 @@ It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST
   
     It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
 
-        NODE_r2_2_length_2963_cov_4.73413       2202954 MH618085        70.058  4.68e-46        521     954     1461    832     338
- 
+        
  - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
    
    It is an eleven column file which contains contains : *taxonomic identifiant*, *contig identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate* and *full taxomic path*
