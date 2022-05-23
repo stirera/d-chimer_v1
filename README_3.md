@@ -14,6 +14,7 @@ Once d-chimer installed (see section 2 for installation) and the parameters conf
 
     python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta
 or
+
     python3 /path/to/d-chimer/dchimer.py  -p blastx -L True -f query_file.fasta
     
 \* We recommand users to execute d-chimer in the directory where they input data are. 
