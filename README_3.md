@@ -54,33 +54,33 @@ For full view of d-chimer options, type :
 
   for each cycle, will be written :
   - the blastn output : *testSequences.1.bn.csv* (cycle 1 blastn output).
-  It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*, *query sequence alignment* and *subject sequence alignment* 
+  It is a 17 column tabultated BLASTn output file : the 12 firts are default BLAST outputs + five columns standing respectively for *taxid*, *kingdom*, *query length*,   *query sequence alignment* and *subject sequence alignment* 
   - the uncovered_zones : *testSequences.1.bn.fas*
   - the blastn negative sequences : *testSequences.1.bn_neg.fasta*
   - a file to ensure that there no mismatches during taxonomy joining to filtered outputs (must be empty, if correct): *testSequences.1.bn.filtered.notfound_taxo.tsv*.
   - A unique folder containing named : *testSequences_bn_out/*
-    - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
+  - the filtered outputs : *testSequences.1.bn.filtered.sorted.tsv*
   
-    It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
+    It is a ten column file which contains contains : *contig identifiant*, *taxonomic identifiant*, *subject accession number*, *identity percent*, *e-value*,          *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate*
 
         
- - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
+  - taxomony associated filered outputs : *testSequences.1.bn.filtered.taxo*
    
    It is an eleven column file which contains contains : *taxonomic identifiant*, *contig identifiant*, *subject accession number*, *identity percent*, *e-value*, *alignment length*, *query alignment start coordinate*, *query alignment end coordinate*, *subject alignment start coordinate*, *subject alignment end coordinate* and *full taxomic path*
  
          2202954 NODE_r2_2_length_2963_cov_4.73413       MH552562        65.545  6.95e-25        624     1163    1765    2514    1919    Viruses;unclassifiedviruses;            Circulargeneticelementsp.
  
  
- - query/subjects alignments : *testSequences.1.bn.filtered.aln*
- Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
+   - query/subjects alignments : *testSequences.1.bn.filtered.aln*
+   Its a three lines item with a description followed by two lines each representing the BLAST aligned sequence for contig and subject.
 
 - run d-chimer blastx with the input file :
 
-The same set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced when blastx is used:
+   The same set of file are produced with blastx... everywhere "bn" is replaced by "bx". Additional intermediate files will be produced when blastx is used:
 
- - BLASTx against viral database output : *testSequences.bx.vir.csv  
- - List of matching sequences against the viral database : *test_1.1.bx.vir.list
- - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas
+    - BLASTx against viral database output : *testSequences.bx.vir.csv  
+    - List of matching sequences against the viral database : *test_1.1.bx.vir.list
+    - Fasta file of sequneces matching the viral database : *testSequences.bx.vir.fas
 
 d-chimer produces all the outputs in the repository where it was launched.
 
