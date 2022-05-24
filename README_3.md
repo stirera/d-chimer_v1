@@ -5,18 +5,19 @@ The aim of d-chimer pipeline is to detect and assign fragments of contigs includ
 
 d-chimer can execute a BLASTn or a BLASTx independently when searching against reference databases. In the BLASTn version, a cycle is made of i) a search against a nucleotide database (ncbi nt), ii) filtering of the outputs where recycling is done and ends with iii) taxonomic identification by adding full lineage path and names.
 
-The BLASTx version runs first using a custom viral protein database and the matching sequences undergo a second BLASTx against the whole protein database (ncbi nr).
+The BLASTx version runs by i) using a custom viral protein database ii) the matching sequences  are extracted iii) the matching sequences undergo a second BLASTx against the whole protein database (ncbi nr), iV) the filter is executed as in BLAST (step ii) and taxonomic identification done as in BLASTn (step iv).
+
 In the the d-chimer publication, datasets were first submitted to d-chimer BLASTn and the non-matching sequences were then re-submitted to d-chimer BLASTx (see figure below).
 
 
   <img src="../img/global_d-chimer.png?raw=true" class="left">
 
-###### figure 1 : d-chimer usage with BLASTn version followed by BLASTx (two way BLASTx).
+###### figure 1 : d-chimer usage with BLASTn version followed by BLASTx.
 
 
 ## 1. Usage
  
-Once d-chimer installed (see section 3 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 4), it can be used as follow *:
+Once d-chimer is installed (see section 3 for installation) and the parameters configured (through the `d-chimer_config.yaml`file, section 4), it can be used as follow *:
 
     python3 /path/to/d-chimer/dchimer.py  -p blastn -L True -f query_file.fasta
 or
@@ -129,7 +130,7 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
 
       wget "https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
       
- The file named "new_taxdump.tar.gz", takes few seconds to be downloded.
+ The file named "new_taxdump.tar.gz", takes few seconds to be downloaded.
     
  - Decompress it using, for example: 
     
@@ -137,7 +138,7 @@ It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_tax
        
  - Create a tab delimited taxo file :
  
- The command used here reformats the original NCBI `fullnamelineage.dmp` file into a `taxid sorted` tabulated file named `fullnamelineage_taxid_sorted.dmp`.
+ The command used here reformats the original NCBI `fullnamelineage.dmp` file into a `taxid sorted` tabulated file, named `fullnamelineage_taxid_sorted.dmp`.
  
         cat fullnamelineage.dmp|sed "s/\s\+\|\s\+//g"|sed 's/\|//2g'|awk 'BEGIN{FS="|"}{print $1,$3,$4,$2}'|sed "s/\s/\t/g"|sort -k1,1 > fullnamelineage_taxid_sorted.dmp
 
