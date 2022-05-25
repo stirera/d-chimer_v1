@@ -123,7 +123,7 @@ d-chimer depends on several python3 libraries and ncbi-BLAST and databases.
 
 ### 3.2 **d-chimer custom data :**
 #### 3.2.1 taxonomic lineages :
-The taxonomic full lineage paths are need for d-chimer to complete its run correctly ***** see also section 5.4 below fo details.*****
+The taxonomic full lineage paths are needed for d-chimer to complete its run correctly ***** see also section 5.4 below fo details.*****
 It is available at https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 
 - Using unix wget command (for example) to download:  
