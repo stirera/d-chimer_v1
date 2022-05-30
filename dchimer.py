@@ -48,7 +48,7 @@ def opts_and_args():
                                 if True local machine BLAST programs are used 
                                 if False biopython ones are used""",
                         dest='local',
-                        metavar='local',
+                        metavar='Tue | False',
                         required=True,
                         default=True)
 
