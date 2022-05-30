@@ -44,9 +44,9 @@ def opts_and_args():
     parser.add_argument('-L',
                         '--local',
                         type=bool,
-                        help="""use local machine BLAST programs or Biopython embedded ones (required) :
-                                if True local machine BLAST programs are used 
-                                if False biopython ones are used""",
+                        help="""use local machine BLAST+ programs or Biopython
+                                embedded ones (required) :
+                                True = use local AND FALSE = use Biopython BLAST+ (default : True)""",
                         dest='local',
                         metavar='Tue | False',
                         required=True,
