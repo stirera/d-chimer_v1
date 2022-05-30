@@ -237,7 +237,7 @@ If blast+ programs are installed, ncbi nucleotide and protein databases can be d
 
       update_blastdb.pl nr
 
-##### /!\ Biopython based blast+ is used for ease of installation but cannot handle the ncbi V5 databases.
+##### /!\ Biopython based BLAST+ is used for ease of installation but cannot handle the ncbi V5 databases.
 The biopython blast calls fail with blast v5 databases but works fine with V4 ones. When using biopython embedded BLAST+ programs, please use the option "-L False".
 To use v5 databases, one have to install local BLAST+ programs and databases, configure accordingly the `yaml` file by providing absolute path to the local installation of BLAST+ binaries repository and databases ;  the "-L True" option must be used when running d-chimer.
 
