@@ -4,7 +4,7 @@
 """
 Licence header
 --------------
-CsvIO class : python3 Class for handling subjects in BLASTn/BLASTx outputs in csv format.
+dchimer : python3 main program of d-chimer pipeline.
 Copyright (C) 2022, INSTITUT PASTEUR DE LA GUYANE
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free Software Foundation,
@@ -15,6 +15,10 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.
 If not, see <https://www.gnu.org/licenses/>.
 date: 19.04.2022
+--
+Author : Sourakhata Tirera <stirera@pasteur-cayenne.fr>
+Author : Jean-Marc Frigerio <jean-marc.frigerio@inrae.fr>
+Author : Alix de Thoisy <alixdet@protonmail.com>
 """
 
 import Contig
