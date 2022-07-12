@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-"""
+<<i
 Licence header
 --------------
 dchimer : python3 main program of d-chimer pipeline.
@@ -19,7 +19,7 @@ date: 19.04.2022
 Author : Sourakhata Tirera <stirera@pasteur-cayenne.fr>
 Author : Jean-Marc Frigerio <jean-marc.frigerio@inrae.fr>
 Author : Alix de Thoisy <alixdet@protonmail.com>
-"""
+i
 
 
 sharedbase=$(basename $1 .tsv)
