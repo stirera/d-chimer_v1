@@ -189,7 +189,7 @@ def taxo_postprocess(program, root, cpt):
     os.makedirs(repertoire)
 
     c = 1
-    while c < cpt :
+    while c <= cpt :
         tsv = root[0] + "." + str(c) + "." + blasttag + ".filtered.tsv"
         tax = root[0] + "." + str(c) + "." + blasttag + ".filtered.taxo"
         aln = root[0] + "." + str(c) + "." + blasttag + ".aln"
