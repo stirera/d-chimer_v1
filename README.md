@@ -244,8 +244,7 @@ To use v5 databases, one have to install local BLAST+ programs and databases, co
 ## 7. best-hit filter
 A best-hit filter is available `besthit_filter.py`. It chooses the best-scoring match subject for each query sequence in the csv file. For that a fasta file (queries used with BLASTn/x), the resulting output csv file and produces the same outputs as d-chimer at a given cycle. It shares the `-p, -f -c -l -I` options with the same significances as d-chimer.
 
-
-      python3 d-chimer_v1/besthit_filter.py -h
+      python3 /path/to/d-chimer/besthit_filter.py -h
       usage: besthit_filter.py [-h] -p blastprogram -f fastafile -c csvfile [-l minBpLength] -I idrecursif
 
       Postprocessing of blast csv files using best scoring match
@@ -259,8 +258,8 @@ A best-hit filter is available `besthit_filter.py`. It chooses the best-scoring 
         -c csvfile, --csv csvfile
                               csv file, BLAST output
         -l minBpLength, --length minBpLength
-                              length (default 50): i.e minimum length of an alignment and uncovered zone to recycle
+                              length (default 50): i.e minimum length of an alignment
         -I idrecursif, --Id idrecursif
-                              loop number to identify files
+                              A number to identify files
 
       usage : besthit_filter [-h] -p blastprogram -f fastafile -c input csvfile -l length -I id
