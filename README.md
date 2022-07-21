@@ -260,7 +260,7 @@ It shares the  `-p, -f, -c, -l, -I` options with the same significances as d-chi
                               csv file, BLAST output
         -l minBpLength, --length minBpLength
                               length (default 50): i.e minimum length of an alignment
-        -I idrecursif, --Id id
+        -I id, --Id id
                               A number to identify files
 
       usage : besthit_filter [-h] -p blastprogram -f fastafile -c input csvfile -l length -I id
