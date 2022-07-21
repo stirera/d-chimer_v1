@@ -85,7 +85,7 @@ def opts_and_args():
                         type=int,
                         help='A number to identify files',
                         dest='recursId',
-                        metavar='idrecursif',
+                        metavar='id',
                         required=True,
                         default=0)
     args = parser.parse_args()
