@@ -242,7 +242,7 @@ The biopython blast calls fail with blast v5 databases but works fine with V4 on
 To use v5 databases, one have to install local BLAST+ programs and databases, configure accordingly the `yaml` file by providing absolute path to the local installation of BLAST+ binaries repository and databases ;  the "-L True" option must be used when running d-chimer.
 
 ## 7. best-hit filter
-A best-hit filter is available `besthit_filter.py`. It chooses the best-scoring match subject for each query sequence in the csv file. For that a fasta file (queries used with BLASTn/x), the resulting output csv file and produces the same outputs as d-chimer at a given cycle (cf section `2`). 
+A best-hit filter is available `besthit_filter.py`. It chooses the best-scoring match subject for each query sequence in the csv file. For that a fasta file (queries used with BLASTn/x), the resulting output csv file and produces the same outputs as d-chimer at a given cycle (cf `section 2` of this document). 
 It shares the  `-p, -f -c -l -I` options with the same significances as d-chimer.
 
       python3 /path/to/d-chimer/besthit_filter.py -h
